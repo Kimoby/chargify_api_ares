@@ -191,6 +191,20 @@ module Chargify
       save
     end
 
+    def update_component_price_point(component_id, price_point_id)
+      process_capturing_errors do
+        post(
+          :price_points,
+          nil, 
+          [
+            { component_id: component_id, 
+              price_point: price_point_id 
+            }
+          ].to_xml(:root => :components)
+        )
+      end
+    end
+
     private
 
     class Component < Base
